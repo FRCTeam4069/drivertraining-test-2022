@@ -1,12 +1,10 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
@@ -22,23 +20,16 @@ public class Drive {
     private static final int RIGHT_MASTER = 5;
     private static final int RIGHT_SLAVE = 6;
 
-    private static final int RIGHT_ENCODER_A = 4;
-    private static final int RIGHT_ENCODER_B = 5;
-
-    private static final int LEFT_ENCODER_A = 6;
-    private static final int LEFT_ENCODER_B = 7;
-
-    private final TalonFX leftMaster, leftSlave, rightMaster, rightSlave;
-    private final Encoder leftEncoder, rightEncoder;
+    private final CANSparkMax leftMaster, leftSlave, rightMaster, rightSlave;
     private final DoubleSolenoid shifter;
 
     private boolean highGear = true;
 
     public Drive() {
-        leftMaster = new TalonFX(LEFT_MASTER);
-        leftSlave = new TalonFX(LEFT_SLAVE);
-        rightMaster = new TalonFX(RIGHT_MASTER);
-        rightSlave = new TalonFX(RIGHT_SLAVE);
+        leftMaster = new CANSparkMax(LEFT_MASTER, CANSparkMaxLowLevel.MotorType.kBrushless);
+        leftSlave = new CANSparkMax(LEFT_SLAVE, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightMaster = new CANSparkMax(RIGHT_MASTER, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightSlave = new CANSparkMax(RIGHT_SLAVE, CANSparkMaxLowLevel.MotorType.kBrushless);
 
         leftSlave.follow(leftMaster);
         rightSlave.follow(rightMaster);
@@ -46,27 +37,9 @@ public class Drive {
         rightMaster.setInverted(true);
         rightSlave.setInverted(true);
 
-        leftEncoder = new Encoder(LEFT_ENCODER_A, LEFT_ENCODER_B, true, EncodingType.k1X);
-        rightEncoder = new Encoder(RIGHT_ENCODER_A, RIGHT_ENCODER_B, false, EncodingType.k1X);
-
         shifter = new DoubleSolenoid(PneumaticsModuleType.REVPH, SHIFTER_FWD, SHIFTER_BCK);
     }
 
-    /** Average rate between both encoders */
-    public double getAvgVelocity() {
-        return leftEncoder.getRate() + rightEncoder.getRate() / 2;
-    }
-    
-    /** Rate of left encoder */
-    public double getLeftVelocity() {
-        return leftEncoder.getRate();
-    }
-
-    /** Rate of right encoder */
-    public double getRightVelocity() {
-        return rightEncoder.getRate();
-    }
-    
     /**
      * Sets the power of each side of the drivetrain (-1 to 1)
      * 
@@ -74,8 +47,8 @@ public class Drive {
      * @param right Right side power
      */
     public void setPower(double left, double right) {
-        leftMaster.set(ControlMode.PercentOutput, left);
-        rightMaster.set(ControlMode.PercentOutput, right);
+        leftMaster.set(left);
+        rightMaster.set(right);
     }
 
     /** Stops the drivetrain */

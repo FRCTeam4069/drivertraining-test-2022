@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
 
   private Drive drive;
   private Intake intake;
-  private XboxController controller;
+  private XboxController controller1, controller2;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,7 +27,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     drive = new Drive();
-    controller = new XboxController(0);
+    intake = new Intake();
+    controller1 = new XboxController(0);
+    controller2 = new XboxController(1);
   }
 
   /**
@@ -82,13 +84,13 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     // drive
-    drive.arcadeDrive(controller.getRightTriggerAxis() - controller.getLeftTriggerAxis(), controller.getLeftX());
+    drive.arcadeDrive(controller1.getRightTriggerAxis() - controller1.getLeftTriggerAxis(), controller1.getLeftX());
     // intake drive
-    intake.setDutyCycle(controller.getRightY());
+    intake.setDutyCycle(controller2.getRightY());
     // intake articulate
-    if (controller.getAButton())
+    if (controller2.getAButton())
       intake.setPivotState(PivotPosition.EXTENDED);
-    else if (controller.getBButton())
+    else if (controller2.getBButton())
       intake.setPivotState(PivotPosition.RETRACTED);
   }
 }
