@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
 
 public class Drive {
 
-    private static final int LEFT_MASTER = 1;
-    private static final int LEFT_SLAVE = 2;
+    private static final int LEFT_MASTER = 6;
+    private static final int LEFT_SLAVE = 5;
 
     private static final int SHIFTER_FWD = 0;
     private static final int SHIFTER_BCK = 7;
 
-    private static final int RIGHT_MASTER = 5;
-    private static final int RIGHT_SLAVE = 6;
+    private static final int RIGHT_MASTER = 2;
+    private static final int RIGHT_SLAVE = 1;
 
     private final CANSparkMax leftMaster, leftSlave, rightMaster, rightSlave;
     private final DoubleSolenoid shifter;
