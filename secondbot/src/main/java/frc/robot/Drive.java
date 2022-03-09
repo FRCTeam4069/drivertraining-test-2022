@@ -31,9 +31,6 @@ public class Drive {
         rightMaster = new CANSparkMax(RIGHT_MASTER, CANSparkMaxLowLevel.MotorType.kBrushless);
         rightSlave = new CANSparkMax(RIGHT_SLAVE, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        leftSlave.follow(leftMaster);
-        rightSlave.follow(rightMaster);
-
         rightMaster.setInverted(true);
         rightSlave.setInverted(true);
 
@@ -48,7 +45,9 @@ public class Drive {
      */
     public void setPower(double left, double right) {
         leftMaster.set(left);
+        leftSlave.set(left);
         rightMaster.set(right);
+        rightSlave.set(right);
     }
 
     /** Stops the drivetrain */
