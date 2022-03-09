@@ -3,9 +3,9 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+// import edu.wpi.first.wpilibj.DoubleSolenoid;
+// import edu.wpi.first.wpilibj.PneumaticsModuleType;
+// import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
 
@@ -14,14 +14,14 @@ public class Drive {
     private static final int LEFT_MASTER = 6;
     private static final int LEFT_SLAVE = 5;
 
-    private static final int SHIFTER_FWD = 0;
-    private static final int SHIFTER_BCK = 7;
+    // private static final int SHIFTER_FWD = 0;
+    // private static final int SHIFTER_BCK = 7;
 
     private static final int RIGHT_MASTER = 2;
     private static final int RIGHT_SLAVE = 1;
 
     private final CANSparkMax leftMaster, leftSlave, rightMaster, rightSlave;
-    private final DoubleSolenoid shifter;
+    // private final DoubleSolenoid shifter;
 
     private boolean highGear = true;
 
@@ -37,7 +37,7 @@ public class Drive {
         rightMaster.setInverted(true);
         rightSlave.setInverted(true);
 
-        shifter = new DoubleSolenoid(PneumaticsModuleType.REVPH, SHIFTER_FWD, SHIFTER_BCK);
+        // shifter = new DoubleSolenoid(PneumaticsModuleType.REVPH, SHIFTER_FWD, SHIFTER_BCK);
     }
 
     /**
@@ -82,8 +82,8 @@ public class Drive {
         // Flip gear state
         highGear = !highGear;
 
-        if (highGear) shifter.set(Value.kForward);
-        else shifter.set(Value.kReverse);
+        // if (highGear) shifter.set(Value.kForward);
+        // else shifter.set(Value.kReverse);
     }
 
 }
